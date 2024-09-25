@@ -27,12 +27,17 @@ module.exports.createListing=async (req, res, next) => {
     // if(Object.keys(req.body).length<=4){
     //     next(new ExpressError(404,"Send valid data for listing"));
     // }else{
+        
     let { title, description, url, price, location, country } = req.body;
+        url=req.file.path;
+    var fileName=req.file.filename;
+    console.log(`url2 is ${url} and filename is ${fileName}`);
     let listing1 = new Listing({
         title: title,
         description: description,
         image: {
-            url: url
+            url: url,
+            filename:fileName
         },
         price: price,
         location: location,
@@ -59,17 +64,19 @@ module.exports.renderEditForm=async (req, res, next) => {
 module.exports.updateListing=async (req, res, next) => {
     let { id } = req.params;
     let { title, description, url, price, location, country } = req.body;
-
-    await Listing.findOneAndUpdate({ _id: id }, {
+    let listing=await Listing.findOneAndUpdate({ _id: id }, {
         title: title,
         description: description,
-        image: {
-            url: url
-        },
         price: price,
         location: location,
         country: country
     }, { new: true });
+    if(typeof req.file !== "undefined"){
+        let url=req.file.path;
+        let filename=req.file.filename;
+        listing.image={url,filename};
+        await listing.save();
+    }
     req.flash("successMsg", "Listing Updated");
     res.redirect(`/listings/${id}`);
 }

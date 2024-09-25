@@ -2,6 +2,7 @@ const mongoose=require('mongoose');
 const Review = require('./review');
 const User= require('./user');
 const ErrorHandler = require('../utility func/ErrorHandler');
+const { string } = require('joi');
 
 const Schema=mongoose.Schema;
 
@@ -13,11 +14,7 @@ let listingSchema= new Schema({
     description: String,
     image:{
         filename: String,
-        url:{
-            type:String,
-            default:"https://images.surferseo.art/fdb08e2e-5d39-402c-ad0c-8a3293301d9e.png",
-            set:(v)=> v==="" ? "https://images.surferseo.art/fdb08e2e-5d39-402c-ad0c-8a3293301d9e.png" : v,
-            }
+        url: String
     },
     price: Number,
     location:String,

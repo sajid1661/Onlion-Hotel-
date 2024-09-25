@@ -5,7 +5,7 @@
             <br>
             <h3>Create a new listing</h3>
             <br>
-            <form action="/listings" method="POST" novalidate class="needs-validation">
+            <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
                 <!-- name="listing[title]" -->
                 <!-- listing[title] ya listing object ki aik key ban jay ga understand -->
                 <div class="mb-3">
@@ -20,8 +20,8 @@
                     <textarea name="description" id="description" class="form-control" required></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="url" class="form-label"> img-url</label>
-                    <input type="text" name="url" id="url" class="form-control"  placeholder="Enter your image URL/LINK">
+                    <label for="url" class="form-label">Upload Listing Image</label>
+                    <input type="file" name="url" id="url" class="form-control" required >
                 </div>
                 <div class="row">
                     <div class="mb-3 col-md-4">
