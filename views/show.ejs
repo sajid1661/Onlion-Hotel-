@@ -1,5 +1,8 @@
 <% layout("/layout/boilerplate") %>
-
+<script>
+            let mapToken="<%= process.env.MAP_TOKEN %>";
+            let listing= <%- JSON.stringify(listing) %>;
+</script>
     <div class="row">
         <div class="col-8 offset-3 mt-3 ">
             <h3>
@@ -25,7 +28,8 @@
                 </p>
             </div>
             <% if(currUser && listing.owner._id.equals(currUser._id)){ %>
-                <br> <br>
+                <br>
+                <br>
             <div class="btns">
                 <a href="/listings/<%= listing._id %>/edit"><button class="btn btn-dark edit-btn ">Edit</button></a>
                 <form action="/listings/<%= listing._id %>?_method=Delete" method="post">
@@ -34,7 +38,7 @@
             </div>
             <% } %>
         </div>
-        <div class=" col-8 offset-3 mt-3 mb-3 ">
+        <div class=" col-8 offset-3 mb-3 ">
             <% if(currUser){ %>
                 <hr>
             <h4>Leave a Review</h4>
@@ -70,9 +74,10 @@
                 <button class="btn btn-outline-dark ">Submit</button>
             </form>
             <% } %>
-            <hr>
-            <p><b>All Reviews</b></p>
+            <%  if(listing.reviews.length > 0) { %>
+                <hr>
             <div class="row ">
+                <p><b>All Reviews</b></p>
                 <% for(review of listing.reviews){ %>
                     <div class="card col-5 ms-3 mb-3">
                         <div class="card-body">
@@ -89,5 +94,11 @@
                     </div>
                     <%}%>
             </div>
+            <% } %>
+        </div>
+        <div class=" col-8 offset-3 mt-3 mb-3 ">
+            <h3>Where you'll be</h3>
+            <div id="map"></div>
         </div>
     </div>
+<script src="/JS/map.js"></script>

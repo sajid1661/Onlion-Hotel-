@@ -1,42 +1,53 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 const Review = require('./review');
-const User= require('./user');
+const User = require('./user');
 const ErrorHandler = require('../utility func/ErrorHandler');
 const { string } = require('joi');
 
-const Schema=mongoose.Schema;
+const Schema = mongoose.Schema;
 
-let listingSchema= new Schema({
-    title:{
-        type:String,
+let listingSchema = new Schema({
+    title: {
+        type: String,
         required: true,
     },
     description: String,
-    image:{
+    image: {
         filename: String,
         url: String
     },
     price: Number,
-    location:String,
+    location: String,
     country: String,
-    reviews:[
+    reviews: [
         {
             type: Schema.Types.ObjectId,
             ref: "Review"
         }
     ],
-    owner:{
+    owner: {
         type: Schema.Types.ObjectId,
         ref: "User",
-    }
+    },
+    geometry: {
+            type: {
+                type: String, // Don't do `{ location: { type: String } }`
+                enum: ['Point'], // 'location.type' must be 'Point'
+                required: true
+            },
+            coordinates: {
+                type: [Number],
+                required: true
+            }
+        }
 });
 
-listingSchema.post("findOneAndDelete",async(listing)=>{
+listingSchema.post("findOneAndDelete", async (listing) => {
     // jis listing ko ham delete kary gay us ka object listing ma store ho ga.
-    if(listing){
-        await Review.deleteMany({_id: {$in: listing.reviews}});
+    if (listing) {
+        await Review.deleteMany({ _id: { $in: listing.reviews } });
     }
 });
 
-const Listing=mongoose.model("Listing",listingSchema);
-module.exports=Listing;
+const Listing = mongoose.model("Listing", listingSchema);
+module.exports = Listing;

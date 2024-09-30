@@ -54,9 +54,9 @@ let sessionOptions={
 };
 
 // root route
-app.get("/", (req, res) => {
-    res.send("this is root route");
-})
+// app.get("/", (req, res) => {
+//     res.send("this is root route");
+// })
 
 app.use(session(sessionOptions));
 //Passport Baisc settings
