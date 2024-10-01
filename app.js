@@ -14,6 +14,7 @@ const reviewRouter=require('./routes/review.js');
 const userRouter=require('./routes/user.js');
 const User=require('./models/user.js');
 const session=require('express-session');
+const MongoStore = require('connect-mongo');
 const flash=require('connect-flash');
 const passport=require('passport');
 const LocalStrategy=require('passport-local');
@@ -31,10 +32,12 @@ app.listen(8080, () => {
     console.log("Server is listening on port num: 8080");
 })
 
-//database connection
-let MongoURL = "mongodb://127.0.0.1:27017/wanderlust";
+// local host database link
+// let MongoURL = "mongodb://127.0.0.1:27017/wanderlust";
+// Mondodb/cloud link;
+let dbURL=process.env.ATLASDB_URL;
 async function main() {
-    await mongoose.connect(MongoURL);
+    await mongoose.connect(dbURL);
 }
 main().then(() => {
     console.log("DataBase connected");
@@ -42,8 +45,19 @@ main().then(() => {
     console.log(err);
 })
 
+const store=MongoStore.create({
+    mongoUrl:dbURL,
+    crypto:{
+        secret: process.env.SECRET
+    },
+    touchAfter: 24*3600
+});
+store.on("error",()=>{
+    console.log("ERROR IN MONGO SESSION STORE", error);
+});
 let sessionOptions={
-    secret: "mysupersecretcode",
+    store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie:{
