@@ -1,15 +1,27 @@
 <% layout("/layout/boilerplate") %>
+<style>
+    @media(max-width:500px){
+      .rev-custom-col{
+        margin-left: 0 !important;
+      }
+      .rev-custom-col{
+        flex:0 0 auto;
+        width: 80%;
+        margin-left: 7.33% !important;
+      }
+}
+</style>
 <script>
             let mapToken="<%= process.env.MAP_TOKEN %>";
             let listing= <%- JSON.stringify(listing) %>;
 </script>
-    <div class="row">
-        <div class="col-8 offset-3 mt-3 ">
+    <div class=" row container-show ">
+        <div class="col-8 offset-3 mt-3 rev-custom-col ">
             <h3>
                 <%= listing.title %>
             </h3>
         </div>
-        <div class="card col-6 offset-3 show-card listing-card">
+        <div class="card col-6 offset-3 rev-custom-col  show-card ">
             <img src="<%= listing.image.url %>" class="card-img-top show-img" style="width: 18rem;" alt="Listing Img">
             <div class="card-body mt-1">
                 <p class="card-text">
@@ -38,7 +50,7 @@
             </div>
             <% } %>
         </div>
-        <div class=" col-8 offset-3 mb-3 ">
+        <div class=" col-8 offset-3 mb-3 rev-custom-col  ">
             <% if(currUser){ %>
                 <hr>
             <h4>Leave a Review</h4>
@@ -76,10 +88,10 @@
             <% } %>
             <%  if(listing.reviews.length > 0) { %>
                 <hr>
-            <div class="row ">
+            <div class=" row ">
                 <p><b>All Reviews</b></p>
                 <% for(review of listing.reviews){ %>
-                    <div class="card col-5 ms-3 mb-3">
+                    <div class="card col-5 rev-custom-col ms-3 mb-3">
                         <div class="card-body">
                             <h5 class="card-title"> @<%=review.author.username%> </h5>
                             <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
@@ -96,7 +108,7 @@
             </div>
             <% } %>
         </div>
-        <div class=" col-8 offset-3 mt-3 mb-3 ">
+        <div class=" col-8 offset-3 rev-custom-col mt-3 mb-3 ">
             <h3>Where you'll be</h3>
             <div id="map"></div>
         </div>
