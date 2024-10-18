@@ -3,6 +3,7 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 .container{
     flex: 1;
@@ -13,6 +14,68 @@ body{
     background-color: white;
 
 }
+.navbar{
+    background-color: rgb(195, 191, 191);
+}
+.container-fluid{
+    background-color: rgb(195, 191, 191);
+}
+.search-btn{
+    width: 160px;
+    background-color: #fe424d !important;
+    color: white;
+    border-radius: 25px !important;
+    padding: 0rem 1rem !important;
+}
+.search-btn:hover{
+    background-color: #fe424d !important;
+    color: white !important;
+}
+.search-btn i{
+    display: inline;
+    margin-right: 0.2rem;
+
+}
+.search-inp{
+    border-radius: 25px !important;
+    padding: 0.5rem 3rem !important;
+}
+
+/* index or all listings */
+#filters{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.filter{
+    text-align: center;
+    margin-top: 2rem;
+    margin-right: 2rem;
+    opacity: 0.7;
+}
+.filter:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+.filter p{
+    font-size: 0.8rem;
+}
+.tax-info{
+    display: none;
+}
+.tax-toggle{
+    width: 260px;
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 3.25rem;
+    padding: 1rem;
+    /* margin-left: 2rem; */
+    display: flex;
+    align-items: center;
+}
+
 .fa-compass{
     color: #fe424d;
     font-size: 2rem;
@@ -56,8 +119,13 @@ body{
 /* cards */
 
 .listing-card{
+    width: 20rem;
     border: none !important;
     margin-bottom: 2rem;
+    align-items: center;
+}
+.card-img{
+    height: 20rem;
 }
 .card-img-top {
     border-radius: 1rem !important;
@@ -81,6 +149,8 @@ body{
     opacity: 0.2;
     background-color: white;
 }
+
+
 
 /* Add New listing Page */
 .add-btn{
@@ -106,12 +176,44 @@ body{
     display: flex;
 }
 .show-card{
+    width: 20rem;
+    border: none !important;
+    margin-bottom: 2rem;
     padding-left: 0px;
     padding-right: 0px;
 }
 
 /* Map Function styleing  */
 #map{
+    width: 80vh;
     height: 300px;
-    width: 90vh;
+    
 }
+
+
+@media(max-width:767px) {
+    #filters{
+        width: 90vw;
+        height: 80px;
+    }
+    .filter {
+        margin: 7px 10px 0px 0px;
+    }
+    .card-img-overlay {
+        width: 200px !important;
+        height: 250px !important;        
+    }
+    .card-img{
+        width: 200px !important;
+        height: 250px !important;
+    }
+    .listing-card{
+        width: 15rem !important;
+        align-items: center !important;
+    }
+      #map{
+            width: 60vw !important;
+            height:250px !important;
+      }
+    }
+

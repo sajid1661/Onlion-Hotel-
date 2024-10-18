@@ -59,6 +59,16 @@ module.exports.createListing=async (req, res, next) => {
     // }
 }
 
+// delete listing from list based on location
+
+module.exports.deleteListing=async (req, res) => {
+    let { id } = req.params;
+    let delet = await Listing.findByIdAndDelete(id);
+    console.log(`this listing is deleted ${delet}`);
+    req.flash("successMsg", "Listing Deleted");
+    res.redirect("/listings");
+}
+
 module.exports.renderEditForm=async (req, res, next) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
